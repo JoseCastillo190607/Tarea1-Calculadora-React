@@ -2,7 +2,7 @@ import React from 'react'
 import './botonDelete.css'
 
 const BotonDelete = ({Del}) => (
-    <div className='botonDelete'>
+    <div className='botonDelete' onClick={Del}>
         Delete
     </div>
 );

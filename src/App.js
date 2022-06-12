@@ -3,16 +3,40 @@ import Boton from './componentes/boton/Boton';
 import BotonDelete from './componentes/botonDelete/BotonDelete';
 import Pantalla from './componentes/pantalla/Pantalla';
 import logoUTA from './images/MicrosoftTeams-image.png';
+import {evaluate} from 'mathjs'
+
 
 import {useState} from 'react';
 
 function App() {
 
-  const [input, setInput] = useState('Hola');
+  const [input, setInput] = useState('');
 
   const agregarInput = val =>{
-    setInput(input +val)
-  }
+    setInput(input + val)
+  };
+
+  const resultado = () => {
+    if(input) {
+      setInput(evaluate(input));
+    } else {
+      alert('Ingrese sus valores');
+    }
+  };
+
+  const [people, setPeople] = useState([
+    {
+      name: "John",
+      lastName: "Doe",
+      age: 30,
+      favouriteFood: "Pizza",
+      favouriteColour: "Red",
+      counter: 0,
+    },
+  ]);
+
+  const [name, setName] = useState("");
+  const [lastName, setLastname] = useState("");
 
 
   return (
@@ -24,10 +48,10 @@ function App() {
       <div className='contenedorCalculadora'>
         <Pantalla input={input}/>
         <div className='fila'>
-          <Boton manejarClic={agregarInput}>1</Boton>
-          <Boton manejarClic={agregarInput}>2</Boton>
-          <Boton manejarClic={agregarInput}>3</Boton>
-          <Boton manejarClic={agregarInput}>+</Boton>
+          <Boton manejarClic={agregarInput}>7</Boton>
+          <Boton manejarClic={agregarInput}>8</Boton>
+          <Boton manejarClic={agregarInput}>9</Boton>
+          <Boton manejarClic={agregarInput}>*</Boton>
         </div>
         <div className='fila'>
           <Boton manejarClic={agregarInput}>4</Boton>
@@ -36,22 +60,56 @@ function App() {
           <Boton manejarClic={agregarInput}>-</Boton>
         </div>
         <div className='fila'>
-          <Boton manejarClic={agregarInput}>7</Boton>
-          <Boton manejarClic={agregarInput}>8</Boton>
-          <Boton manejarClic={agregarInput}>9</Boton>
-          <Boton manejarClic={agregarInput}>*</Boton>
-        </div>
+          <Boton manejarClic={agregarInput}>1</Boton>
+          <Boton manejarClic={agregarInput}>2</Boton>
+          <Boton manejarClic={agregarInput}>3</Boton>
+          <Boton manejarClic={agregarInput}>+</Boton>
+        </div>     
         <div className='fila'>
-          <Boton manejarClic={agregarInput}>=</Boton>
           <Boton manejarClic={agregarInput}>0</Boton>
           <Boton manejarClic={agregarInput}>.</Boton>
+          <Boton manejarClic={resultado}>=</Boton>
           <Boton manejarClic={agregarInput}>/</Boton>
         </div>
         <div className='fila'>
-          <BotonDelete/>
+          <BotonDelete Del ={() => setInput('')}>
+          Delete
+          </BotonDelete>
         </div>
       </div>
-
+  
+    <div className="tableContainer">
+      <div>
+        <input
+          type="text"
+          name="name"
+          onChange={(event) => {
+            setName(event.target.value);
+          }}
+        />
+        <input
+          type="text"
+          name="lastName"
+          onChange={(event) => {
+            setLastname(event.target.value);
+          }}
+        />
+        <button className='agregarNombre'
+          onClick={() => {
+            setPeople((current) => [{ name, lastName }, ...current]);
+          }}
+        >
+          Add user
+        </button>
+        <th>
+          <ul>
+            {people.map((person, idx) => (
+              <li id={idx}>{`${person.name} ${person.lastName}`}</li>
+            ))}
+          </ul>
+         </th>
+        </div>
+      </div>
     </div>
   );
 }
