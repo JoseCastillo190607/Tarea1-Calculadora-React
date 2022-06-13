@@ -49,15 +49,17 @@ function App() {
         <div className='inputBoton'>
 
           <input
-                type="text"
-                name="name"
+                placeholder='Jose'
+                type='text'
+                name='lastName'
                 onChange={(event) => {
                   setName(event.target.value);
                 }}
               />
               <input
-                type="text"
-                name="lastName"
+                placeholder='Castillo'
+                type='text'
+                name='lastName'
                 onChange={(event) => {
                   setLastname(event.target.value);
                 }}
